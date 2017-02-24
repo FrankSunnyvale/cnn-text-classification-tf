@@ -25,7 +25,7 @@ def clean_str(string):
     return string.strip().lower()
 
 
-def load_data_and_labels(positive_data_file, negative_data_file):
+def load_data_and_labels(positive_data_file, negative_data_file, good_data_file):
     """
     Loads MR polarity data from files, splits the data into words and generates labels.
     Returns split sentences and labels.
@@ -33,15 +33,25 @@ def load_data_and_labels(positive_data_file, negative_data_file):
     # Load data from files
     positive_examples = list(open(positive_data_file, "r").readlines())
     positive_examples = [s.strip() for s in positive_examples]
+
     negative_examples = list(open(negative_data_file, "r").readlines())
     negative_examples = [s.strip() for s in negative_examples]
+
+    good_examples = list(open(good_data_file, "r").readlines())
+    good_examples = [s.strip() for s in good_examples]
+
+
     # Split by words
-    x_text = positive_examples + negative_examples
+    x_text = positive_examples + negative_examples + good_examples
     x_text = [clean_str(sent) for sent in x_text]
+
+
     # Generate labels
-    positive_labels = [[0, 1] for _ in positive_examples]
-    negative_labels = [[1, 0] for _ in negative_examples]
-    y = np.concatenate([positive_labels, negative_labels], 0)
+    positive_labels = [[0, 1, 0] for _ in positive_examples]
+    negative_labels = [[1, 0, 0] for _ in negative_examples]
+    good_labels = [[0, 0, 1] for _ in good_examples]
+
+    y = np.concatenate([positive_labels, negative_labels, good_labels], 0)
     return [x_text, y]
 
 
