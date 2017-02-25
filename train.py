@@ -47,10 +47,25 @@ print("")
 
 # Load data
 print("Loading data...")
-x_text, y = data_helpers.load_data_and_labels(FLAGS.positive_data_file, FLAGS.negative_data_file)
+x_text, y = data_helpers.load_data_and_labels2([
+    "./data/hotshare/artist.txt", 
+    "./data/hotshare/emotion.txt", 
+    "./data/hotshare/extend.txt", 
+    "./data/hotshare/foods.txt", 
+    "./data/hotshare/goplaces.txt", 
+    "./data/hotshare/hotnews.txt", 
+    "./data/hotshare/human.txt",
+    "./data/hotshare/nature.txt", 
+    "./data/hotshare/news.txt", 
+    "./data/hotshare/poets.txt", 
+    "./data/hotshare/programmer.txt", 
+    "./data/hotshare/scene.txt", 
+    "./data/hotshare/talk.txt",
+    "./data/hotshare/travel.txt"
+    ])
 
 # Build vocabulary
-max_document_length = max([len(x.split(" ")) for x in x_text])
+max_document_length = max([len(x) for x in x_text])
 vocab_processor = learn.preprocessing.VocabularyProcessor(max_document_length)
 x = np.array(list(vocab_processor.fit_transform(x_text)))
 
