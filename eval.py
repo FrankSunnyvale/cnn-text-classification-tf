@@ -36,7 +36,22 @@ print("")
 
 # CHANGE THIS: Load data. Load your own data here
 if FLAGS.eval_train:
-    x_raw, y_test = data_helpers.load_data_and_labels(FLAGS.positive_data_file, FLAGS.negative_data_file)
+    x_raw, y_test = data_helpers.load_data_and_labels2([
+    "./data/hotshare_eval/artist.txt", 
+    "./data/hotshare_eval/emotion.txt", 
+    "./data/hotshare_eval/extend.txt", 
+    "./data/hotshare_eval/foods.txt", 
+    "./data/hotshare_eval/goplaces.txt", 
+    "./data/hotshare_eval/hotnews.txt", 
+    "./data/hotshare_eval/human.txt",
+    "./data/hotshare_eval/nature.txt", 
+    "./data/hotshare_eval/news.txt", 
+    "./data/hotshare_eval/poets.txt", 
+    "./data/hotshare_eval/programmer.txt", 
+    "./data/hotshare_eval/scene.txt", 
+    "./data/hotshare_eval/talk.txt",
+    "./data/hotshare_eval/travel.txt"
+    ])
     y_test = np.argmax(y_test, axis=1)
 else:
     x_raw = ["a masterpiece four years in the making", "everything is off."]

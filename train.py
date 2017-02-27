@@ -8,6 +8,10 @@ import datetime
 import data_helpers
 from text_cnn import TextCNN
 from tensorflow.contrib import learn
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 # Parameters
 # ==================================================
@@ -48,20 +52,20 @@ print("")
 # Load data
 print("Loading data...")
 x_text, y = data_helpers.load_data_and_labels2([
-    "./data/hotshare/artist.txt", 
-    "./data/hotshare/emotion.txt", 
-    "./data/hotshare/extend.txt", 
-    "./data/hotshare/foods.txt", 
-    "./data/hotshare/goplaces.txt", 
-    "./data/hotshare/hotnews.txt", 
-    "./data/hotshare/human.txt",
-    "./data/hotshare/nature.txt", 
-    "./data/hotshare/news.txt", 
-    "./data/hotshare/poets.txt", 
-    "./data/hotshare/programmer.txt", 
-    "./data/hotshare/scene.txt", 
-    "./data/hotshare/talk.txt",
-    "./data/hotshare/travel.txt"
+    "./data/hotshare_train/artist.txt", 
+    "./data/hotshare_train/emotion.txt", 
+    "./data/hotshare_train/extend.txt", 
+    "./data/hotshare_train/foods.txt", 
+    "./data/hotshare_train/goplaces.txt", 
+    "./data/hotshare_train/hotnews.txt", 
+    "./data/hotshare_train/human.txt",
+    "./data/hotshare_train/nature.txt", 
+    "./data/hotshare_train/news.txt", 
+    "./data/hotshare_train/poets.txt", 
+    "./data/hotshare_train/programmer.txt", 
+    "./data/hotshare_train/scene.txt", 
+    "./data/hotshare_train/talk.txt",
+    "./data/hotshare_train/travel.txt"
     ])
 
 # Build vocabulary
