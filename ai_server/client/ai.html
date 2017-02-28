@@ -1,0 +1,16 @@
+<head>
+  <title>test</title>
+</head>
+
+<body>
+  <h1>Register Server</h1>
+
+  {{> portal}}
+</body>
+
+<template name="portal">
+	<form class="new-register">
+        <input type="text" name="text" placeholder="Type email to register token" />
+    </form>
+    <p>Your token is:  {{counter}}</p>
+</template>

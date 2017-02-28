@@ -1,0 +1,8 @@
+
+{
+    "mkdirp":"0.5.1",
+    "shelljs":"0.6.0",
+    "http-request":"0.7.0",
+    "create-raidtorrent":"3.24.8",
+    "parse-torrent": "5.4.0"
+}
