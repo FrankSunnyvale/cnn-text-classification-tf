@@ -17,9 +17,9 @@ if (Meteor.isClient) {
             // Get value from form element
             var text = event.target.text.value;
 
-            $.get( "/classify?url=" + text, function( data ) {
-                $( ".result" ).html( data );
-                alert( "Load was performed." );
+            $.get( "http://localhost:3000/request/classify?url=" + text, function( data ) {
+                
+                alert( "Load was performed. " + JSON.stringify(data));
             });
             // Clear form
             //event.target.text.value = "";

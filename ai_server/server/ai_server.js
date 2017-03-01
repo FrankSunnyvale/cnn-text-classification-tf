@@ -33,14 +33,13 @@ if (Meteor.isServer) {
       }
       
       fs.readFile(file_path, function (err, data) {
-       if (err) return;
+        if (err) return;
         var s = data.toString()
-        console.log(data.toString());
-        var title = s.match(/<h2\ id=\"wx-title\"\ class=\"title\">(.*?)<\/h2>/)[1]
-        //<h2 id="wx-title" class="title">2017年的数据分析的趋势预测 &nbsp; Data Analytics Top Trends In 2017&nbsp;</h2>
+        var title = s.match(/<meta property=\"og:title\" content=\"(.*?)- 故事贴\"\/>/)[1]
+        console.log('title ' + title)
         
         var class_info = shelljs.exec('./eval2.py ' + title, {silent:true}).output;
-        commit(url, title, class_info);
+        //commit(url, title, class_info);
       });
     }
   
@@ -91,8 +90,16 @@ if (Meteor.isServer) {
             POST: undefined,    
             GET: function(objs, requestMetadata, returnObject) {
                 console.log('requestMetadata2:' + JSON.stringify(requestMetadata));
-                var url = decodeURIComponent(requestMetadata.query.url);
                 
+                if(!requestMetadata.query.url){
+                    returnObject.success = true;
+                    returnObject.statusCode = 200;
+                    returnObject.body = {record: 'url is not correct.'};
+                    console.log("url is not correct " + url)
+                    return true;
+                }
+                
+                var url = decodeURIComponent(requestMetadata.query.url);
                 var url_array = url.split('/');
                 url_array.shift();
                 var dir = url_array.join('/');
@@ -149,7 +156,7 @@ if (Meteor.isServer) {
 
     Meteor.startup(function () {
         var requestApi = new CollectionAPI({apiPath: 'request',allowCORS:true});
-        requestApi.addCollection(Torrents, 'classify',classify);
+        requestApi.addCollection(Evals, 'classify',classify);
         requestApi.start();
 	});
 }
