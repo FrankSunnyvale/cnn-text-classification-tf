@@ -26,3 +26,4 @@ mkarliner:mqtt@0.1.0
 standard-minifier-css
 standard-minifier-js
 shell-server
+autopublish

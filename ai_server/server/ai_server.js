@@ -10,6 +10,13 @@ if (Meteor.isServer) {
     var work_directory = '/srv/my_tree/';
     var isDownloading = {};
 
+    function getClass(num){
+        var classes = ["artist", "emotion", "extend", "foods", "goplaces", "hotnews", "human", "nature", "news", "poets", "programmer", "scene", "talk", "travel"];
+        var chclasses = ["艺术", "情感", "扩展", "美食", "去的地方", "热点新闻", "人物", "自然", "新闻", "歪诗几首", "程序猿日常", "美景", "杂谈", "旅游"];
+        
+        return chclasses[parseInt(num)];
+    }
+    
     function getClassPath(url) {
           var url_array = url.split('/');
           url_array.shift();
@@ -43,9 +50,9 @@ if (Meteor.isServer) {
         rep = rep.replace("\n", ",");
         console.log("rep " + rep);
         var info = JSON.parse(rep)
-        
-        console.log("class_info " + info[0][0] + ' ' + info[0][1]);
-        //commit(url, title, class_info);
+        var infos = info[0][0] + ', ' + info[0][1] + ', ' + getClass(info[0][1])
+        console.log(infos);
+        commit(url, title, infos);
       });
     }
   
