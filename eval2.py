@@ -21,6 +21,7 @@ tf.flags.DEFINE_string("negative_data_file", "./data/rt-polaritydata/rt-polarity
 tf.flags.DEFINE_integer("batch_size", 64, "Batch Size (default: 64)")
 tf.flags.DEFINE_string("checkpoint_dir", "", "Checkpoint directory from training run")
 tf.flags.DEFINE_boolean("eval_train", False, "Evaluate on all training data")
+tf.flags.DEFINE_string("eval_title", "", "Evaluate an title")
 
 # Misc Parameters
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
@@ -29,40 +30,16 @@ tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on 
 
 FLAGS = tf.flags.FLAGS
 FLAGS._parse_flags()
-print("\nParameters:")
-for attr, value in sorted(FLAGS.__flags.items()):
-    print("{}={}".format(attr.upper(), value))
-print("")
 
 # CHANGE THIS: Load data. Load your own data here
-if FLAGS.eval_train:
-    x_raw, y_test = data_helpers.load_data_and_labels2([
-    "./data/hotshare_eval/artist.txt", 
-    "./data/hotshare_eval/emotion.txt", 
-    "./data/hotshare_eval/extend.txt", 
-    "./data/hotshare_eval/foods.txt", 
-    "./data/hotshare_eval/goplaces.txt", 
-    "./data/hotshare_eval/hotnews.txt", 
-    "./data/hotshare_eval/human.txt",
-    "./data/hotshare_eval/nature.txt", 
-    "./data/hotshare_eval/news.txt", 
-    "./data/hotshare_eval/poets.txt", 
-    "./data/hotshare_eval/programmer.txt", 
-    "./data/hotshare_eval/scene.txt", 
-    "./data/hotshare_eval/talk.txt",
-    "./data/hotshare_eval/travel.txt"
-    ])
-    y_test = np.argmax(y_test, axis=1)
-else:
-    x_raw = ["a masterpiece four years in the making", "everything is off."]
-    y_test = [1, 0]
+
+x_raw = [FLAGS.eval_title]
+y_test = None
 
 # Map data into vocabulary
 vocab_path = os.path.join(FLAGS.checkpoint_dir, "..", "vocab")
 vocab_processor = learn.preprocessing.VocabularyProcessor.restore(vocab_path)
 x_test = np.array(list(vocab_processor.transform(x_raw)))
-
-print("\nEvaluating...\n")
 
 # Evaluation
 # ==================================================
@@ -105,6 +82,6 @@ if y_test is not None:
 # Save the evaluation to a csv
 predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))
 out_path = os.path.join(FLAGS.checkpoint_dir, "..", "prediction.csv")
-print("Saving evaluation to {0}".format(out_path))
+print(str(predictions_human_readable).decode("string_escape"))
 with open(out_path, 'w') as f:
     csv.writer(f).writerows(predictions_human_readable)

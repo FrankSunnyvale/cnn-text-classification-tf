@@ -37,8 +37,14 @@ if (Meteor.isServer) {
         var s = data.toString()
         var title = s.match(/<meta property=\"og:title\" content=\"(.*?)- 故事贴\"\/>/)[1]
         console.log('title ' + title)
+        var cmd = '/workspace/cnn-text-classification-tf/eval2.py --checkpoint_dir="/workspace/cnn-text-classification-tf/runs/1488216969/checkpoints/" --eval_title="' + title + '"'
+        var class_info = shelljs.exec(cmd, {silent:true}).output;
+        var rep = class_info.replace(/'/g , "\"");
+        rep = rep.replace("\n", ",");
+        console.log("rep " + rep);
+        var info = JSON.parse(rep)
         
-        var class_info = shelljs.exec('./eval2.py ' + title, {silent:true}).output;
+        console.log("class_info " + info[0][0] + ' ' + info[0][1]);
         //commit(url, title, class_info);
       });
     }
