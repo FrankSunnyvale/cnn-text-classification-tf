@@ -1,10 +1,11 @@
 if (Meteor.isClient) {
     // counter starts at 0
-    Session.setDefault('counter', '');
+    Session.setDefault('url', '');
 
     Template.portal.helpers({
         counter: function () {
-            return Session.get('counter');
+            var find = Evals.findOne({'url':Session.get('url')})
+            return find.class_info;
         }
     });
 
@@ -16,16 +17,13 @@ if (Meteor.isClient) {
             // Get value from form element
             var text = event.target.text.value;
 
-            // Insert a task into the collection
-            Tokens.insert({
-                mail: text,
-                createdAt: new Date() // current time
+            $.get( "/classify?url=" + text, function( data ) {
+                $( ".result" ).html( data );
+                alert( "Load was performed." );
             });
-
             // Clear form
-            event.target.text.value = "";
-            record = Tokens.findOne({'mail':text});
-            Session.set('counter', record._id);
+            //event.target.text.value = "";
+
         }
     });
 }
