@@ -82,6 +82,6 @@ if y_test is not None:
 # Save the evaluation to a csv
 predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))
 out_path = os.path.join(FLAGS.checkpoint_dir, "..", "prediction.csv")
-print(str(predictions_human_readable).decode("string_escape"))
+print('["{}","{}"]'.format(str(FLAGS.eval_title).decode("string_escape"), all_predictions[0]))
 with open(out_path, 'w') as f:
     csv.writer(f).writerows(predictions_human_readable)

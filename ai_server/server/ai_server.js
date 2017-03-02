@@ -45,12 +45,13 @@ if (Meteor.isServer) {
         var title = s.match(/<meta property=\"og:title\" content=\"(.*?)- 故事贴\"\/>/)[1]
         console.log('title ' + title)
         var cmd = '/workspace/cnn-text-classification-tf/eval2.py --checkpoint_dir="/workspace/cnn-text-classification-tf/runs/1488216969/checkpoints/" --eval_title="' + title + '"'
+        console.log('cmd' + cmd);
+        
         var class_info = shelljs.exec(cmd, {silent:true}).output;
-        var rep = class_info.replace(/'/g , "\"");
-        rep = rep.replace("\n", ",");
-        console.log("rep " + rep);
-        var info = JSON.parse(rep)
-        var infos = info[0][0] + ', ' + info[0][1] + ', ' + getClass(info[0][1])
+        console.log('class_info' + class_info);
+        
+        var info = JSON.parse(class_info)
+        var infos = info[0] + ', ' + info[1] + ', ' + getClass(info[1])
         console.log(infos);
         commit(url, title, infos);
       });
@@ -72,11 +73,11 @@ if (Meteor.isServer) {
           return;
       }
       if (fs.existsSync(file_path)){
-        console.log(file_path + ' does exist, do nothing');
-        if(cb){
-            cb(url, file_path);
-        }
-        return
+        //console.log(file_path + ' does exist, do nothing');
+        //if(cb){
+        //    cb(url, file_path);
+        //}
+        //return
       }
       isDownloading[url] = true;
 
