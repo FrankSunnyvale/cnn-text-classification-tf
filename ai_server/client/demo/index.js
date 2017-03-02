@@ -80,12 +80,10 @@ Template.demoInput.events({
     
     url.set(text);
     
-    /*
     $.get( "/request/classify?url=" + text, function( data ) {
       console.log("performed " + JSON.stringify(data));
       Session.set('url', text);
     });
-    */
     
     template.set('demoIndex');
   },
