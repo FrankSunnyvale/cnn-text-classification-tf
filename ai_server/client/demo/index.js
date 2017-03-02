@@ -18,9 +18,13 @@ Tracker.autorun(function(){
   if(url.get()){
     counter.set('processing, please waiting.');
     var find = Evals.findOne({'url':Session.get('url')})
-    if (find)
+    if (find){
+      console.log('find ' + find.class_info);
       return counter.set(find.class_info);
-    counter.set('error');
+    }else {
+      console.log('find ' + 'error ' + Session.get('url'));
+      counter.set('idle');
+    }
   }
 });
 
@@ -50,7 +54,15 @@ Template.demoIndex.helpers({
 
 Template.demoIndex.events({
   'click .urls-list li': function(e){
+    var session_url = this.url;
+    
+    $.get( "/request/classify?url=" + this.url, function( data ) {
+      console.log("performed " + session_url  + '  ' + JSON.stringify(data));
+      Session.set('url', session_url);
+    });
+
     url.set(this.url);
+    
     console.log('set url:', this.url);
   },
   'click .footer .button': function(){
@@ -65,7 +77,16 @@ Template.demoInput.events({
       return alert('please input correct url');
     if (text.indexOf("tiegushi") < 0)
       return alert("please input the tiegushi's url, for example http://cdn.tiegushi.com/posts/582ec6ac11aaf47be300006a");
+    
     url.set(text);
+    
+    /*
+    $.get( "/request/classify?url=" + text, function( data ) {
+      console.log("performed " + JSON.stringify(data));
+      Session.set('url', text);
+    });
+    */
+    
     template.set('demoIndex');
   },
   'click .button': function(){
