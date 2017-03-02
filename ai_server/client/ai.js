@@ -38,6 +38,12 @@ if (Meteor.isClient) {
                 alert("please input correct url");
                 return;
             }
+            
+            if (text.indexOf("tiegushi") < 0){
+                alert("please input the tiegushi's url, for example http://cdn.tiegushi.com/posts/582ec6ac11aaf47be300006a");
+                return;
+            }
+            
             $.get( "/request/classify?url=" + text, function( data ) {
                 console.log("performed " + JSON.stringify(data));
                 Session.set('url', text);
