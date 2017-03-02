@@ -1,0 +1,84 @@
+html,body{margin: 0; padding: 0; width: 100%; height: 100%;}
+.page{position: absolute; left: 0px; top: 102px; right: 0px; bottom: 0px;}
+
+header{
+  width: 1156px; height: 100px; position: relative; overflow: hidden; margin: 0px auto;
+  .logo{
+    width: 132px; height: 28px; position: absolute; left: 0px; top: 50%; margin-top: -14px;
+    img{width: 100%; height: 100%;}
+  }
+  ul.menu{
+    width: 700px; height: 40px; line-height: 40px; position: absolute; left: 140px; top: 50%; margin-top: -20px; list-style: none;
+    li{ margin-right: 40px; float: left; color: rgba(72,77,81,.75); cursor: pointer;}
+    li.hover{color: #00B2FF;}
+    li:hover{color: rgba(29,32,37,1);}
+    li.hover:hover{color: #00B2FF;}
+  }
+  .buttons{
+    height: 100px; height: 34px; position: absolute; right: 0px; top: 50%; margin-top: -17px;
+    .button{height: 34px; line-height: 34px; border-radius: 20px; float: left; margin-right: 15px; padding: 0px 20px; cursor: pointer;}
+    .button.base{border: 2px solid #1F2933;}
+    .button.base:hover{background-color: #1F2933; color: #fff;}
+    .button.master{border: 2px solid #00B2FF; color: #00B2FF;}
+    .button.master:hover{background-color: #00B2FF; color: #fff;}
+  }
+}
+.header-bottom{width: 100%; height: 2px; background-color: #ccc;}
+
+.page-demo{
+  height: 100%; position: relative; padding-bottom: 100px; box-sizing: border-box;
+  .main{
+    width: 60%; height: 100%; float: left; padding: 100px; box-sizing: border-box;
+    iframe{width: 100%; height: 100%; border: 1px solid #ddd; border-radius: 5px;}
+  }
+  .profile{
+    width: 40%; height: 100%; float: left; box-sizing: border-box; border-left: 1px solid #ddd;
+    > .title{
+      height: 66px; line-height: 66px; padding: 0px 20px; box-sizing: border-box; position: relative; border-bottom: 1px solid #ddd; font-weight: bold;
+      .button{ height: 66px; line-height: 66px; position: absolute; right: 20px; top: 0px; color: #00B2FF}
+    }
+    > .item{
+      padding: 0px 20px; padding-top: 12px; font-size: 12px;
+      > .title{height: 44px; line-height: 44px;}
+      .lable{
+        color: #ccc; height: 44px; position: relative;
+        .name,.vlaue{height: 44px; line-height: 44px;}
+        .value{height: 44px; line-height: 44px; position: absolute; right: 0px; top: 0px;}
+      }
+      .values{
+        height: 44px; font-weight: bold;
+        .name,.vlaue{height: 44px; line-height: 44px;}
+        .name{border-bottom: 1px solid #ddd; position: relative; }
+        .value{height: 44px; line-height: 44px; position: absolute; right: 0px; top: 0px;}
+      }
+    }
+  }
+  .footer{
+    height: 100px; background-color: #1D2938; position: absolute; left: 0px; bottom: 0px; right: 0px; padding-right: 470px; padding-left: 20px; box-sizing: border-box;
+    .button{width: 450px; height: 48px; line-height: 48px; position: absolute; right: 10px; top: 50%; margin-top: -24px; text-align: center; background-color: #fff; border-radius: 20px; color: #00B2FF;}
+    .button:hover{background-color: #00B2FF; color: #fff; cursor: pointer;}
+    ul{
+      height: 60px; padding: 0px;
+      li{
+        width: 60px; height: 65px; float: left; margin-right: 20px; list-style: none; cursor: pointer;
+        img{width: 100%; height: 100%; object-fit: cover;}
+      }
+      li:hover{border:2px solid #ccc;}
+      li.hover{border:2px solid #00B2FF}
+    }
+  }
+}
+
+.page-demo-index{
+  height: 100%; position: relative; padding-bottom: 100px; box-sizing: border-box;
+  .box{
+    width: 600px; height: 250px; position: absolute; left: 50%; top: 50%; margin-left: -300px; margin-top: -125px;
+    .title{font-size: 32px; font-weight: bold; margin-bottom: 10px;}
+    .input{
+      height: 66px; line-height: 66px; background-color: #1c1e1e; position: relative; border-radius: 5px;
+      input{width: 530px; height: 58px; line-height: 58px; position: absolute; left: 4px; top: 4px; border: none; margin: 0; padding: 0px 10px; box-sizing: border-box;}
+      .go{width: 66px; height: 66px; position: absolute; right: 0; top: 0; text-align: center; color: #fff; cursor: pointer;}
+    }
+    .button{width: 120px; height: 50px; line-height: 50px; text-align: center; background-color: #00B2FF; color: #fff; border-radius: 10px; margin: 0px auto; margin-top: 30px;box-shadow: 0 3px 6px 0 rgba(0,0,0,.25); cursor: pointer;}
+  }
+}

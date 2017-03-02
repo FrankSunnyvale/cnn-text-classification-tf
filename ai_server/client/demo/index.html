@@ -1,0 +1,36 @@
+<template name="demo">
+  {{> Template.dynamic template=template}}
+</template>
+
+<template name="demoIndex">
+  <div class="page-demo">
+    <div class="main"><iframe id="demo-iframe" src="{{curr_url}}"></iframe></div>
+    <div class="profile">
+      <div class="title">AI Demo<div class="button">Configure</div></div>
+      <div class="item">
+        <div class="title">GENERAL MODEL</div>
+        <div class="lable">
+          <div class="name">CLASSIFY KEY</div><div class="value">VALUE</div>
+        </div>
+        <div class="values">
+          {{counter}}
+          <!--<div class="name">a<div class="value">1</div></div>
+          <div class="name">b<div class="value">2</div></div>
+          <div class="name">c<div class="value">3</div></div>-->
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <ul class="list urls-list">
+        {{#each urls}}
+          {{#if is_selected url}}
+          <li class="hover"><img src="{{img}}" /></li>
+          {{else}}
+          <li><img src="{{img}}" /></li>
+          {{/if}}
+        {{/each}}
+      </ul>
+      <div class="button">TRY YOUR OWN URL</div>
+    </div>
+  </div>
+</template>
