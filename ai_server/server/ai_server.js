@@ -44,7 +44,7 @@ if (Meteor.isServer) {
         var s = data.toString()
         var title = s.match(/<meta property=\"og:title\" content=\"(.*?)- 故事贴\"\/>/)[1]
         console.log('title ' + title)
-        var cmd = '/workspace/cnn-text-classification-tf/eval2.py --checkpoint_dir="/workspace/cnn-text-classification-tf/runs/1488216969/checkpoints/" --eval_title="' + title + '"'
+        var cmd = '/mnt/cnn-text-classification-tf/eval2.py --checkpoint_dir="/mnt/cnn-text-classification-tf/runs/1488410276/checkpoints/" --eval_title="' + title + '"'
         console.log('cmd' + cmd);
         
         var class_info = shelljs.exec(cmd, {silent:true}).output;
