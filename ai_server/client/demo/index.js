@@ -56,6 +56,8 @@ Template.demoIndex.events({
   'click .urls-list li': function(e){
     var session_url = this.url;
     
+    counter.set('processing, please waiting.');
+    
     $.get( "/request/classify?url=" + this.url, function( data ) {
       console.log("performed " + session_url  + '  ' + JSON.stringify(data));
       Session.set('url', session_url);
