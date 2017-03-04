@@ -1,6 +1,7 @@
 import numpy as np
 import re
 import itertools
+import jieba
 from collections import Counter
 
 
@@ -24,6 +25,12 @@ def clean_str(string):
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
 
+def jieba_str(string):
+    seg_list = jieba.cut(clean_str(string))
+    text = " ".join(seg_list)
+    text = re.sub(" +", " ", text)
+    return text
+
 def load_data_and_labels3(data_file_lists):
     """
     Loads MR polarity data from files, splits the data into words and generates labels.
@@ -40,8 +47,10 @@ def load_data_and_labels3(data_file_lists):
         examples[index] = [s.strip() for s in examples[index]]
         
         x_text = x_text + examples[index]
-        x_text = [clean_str(sent) for sent in x_text]
-    
+        #x_text = [clean_str(sent) for sent in x_text]
+        x_text = [jieba_str(sent) for sent in x_text]
+        
+        
     labels[0]  = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[0]]
     labels[1]  = [[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[1]]
     labels[2]  = [[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[2]]
