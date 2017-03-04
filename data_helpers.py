@@ -46,11 +46,10 @@ def load_data_and_labels3(data_file_lists):
         examples[index] = list(open(item, "r").readlines())
         examples[index] = [s.strip() for s in examples[index]]
         
+        examples[index] = [jieba_str(sent) for sent in examples[index]]
         x_text = x_text + examples[index]
-        #x_text = [clean_str(sent) for sent in x_text]
-        x_text = [jieba_str(sent) for sent in x_text]
-        
-        
+
+       
     labels[0]  = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[0]]
     labels[1]  = [[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[1]]
     labels[2]  = [[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[2]]
