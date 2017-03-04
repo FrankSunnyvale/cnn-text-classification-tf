@@ -9,6 +9,13 @@ import data_helpers
 from text_cnn import TextCNN
 from tensorflow.contrib import learn
 import csv
+import re
+import jieba
+
+def jieba_str(string):
+    seg_list = jieba.cut(clean_str(string))
+    text = " ".join(seg_list)
+    text = re.sub(" +", " ", text)
 
 # Parameters
 # ==================================================
@@ -35,6 +42,8 @@ FLAGS._parse_flags()
 
 x_raw = [FLAGS.eval_title]
 y_test = None
+
+x_raw = [jieba_str(sent) for sent in x_raw]
 
 # Map data into vocabulary
 vocab_path = os.path.join(FLAGS.checkpoint_dir, "..", "vocab")

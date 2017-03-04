@@ -10,6 +10,9 @@ from text_cnn import TextCNN
 from tensorflow.contrib import learn
 import sys
 
+import re
+import jieba
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -46,6 +49,12 @@ for attr, value in sorted(FLAGS.__flags.items()):
 print("")
 
 
+def jieba_str(string):
+    seg_list = jieba.cut(clean_str(string))
+    text = " ".join(seg_list)
+    text = re.sub(" +", " ", text)
+    return text
+
 # Data Preparation
 # ==================================================
 
@@ -73,7 +82,8 @@ x_text, y = data_helpers.load_data_and_labels3([
     ])
 
 # Build vocabulary
-max_document_length = max([len(x) for x in x_text])
+#max_document_length = max([len(x) for x in x_text])
+max_document_length = max([len(jieba_str(x).split(" ")) for x in x_text])
 vocab_processor = learn.preprocessing.VocabularyProcessor(max_document_length)
 x = np.array(list(vocab_processor.fit_transform(x_text)))
 
