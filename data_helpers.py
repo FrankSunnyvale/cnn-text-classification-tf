@@ -87,10 +87,8 @@ def load_data_and_labels2(data_file_lists):
     for index, item in enumerate(data_file_lists):
         examples[index] = list(open(item, "r").readlines())
         examples[index] = [s.strip() for s in examples[index]]
-        
         x_text = x_text + examples[index]
-        x_text = [clean_str(sent) for sent in x_text]
-    
+
     labels[0]  = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[0]]
     labels[1]  = [[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[1]]
     labels[2]  = [[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[2]]
@@ -105,7 +103,8 @@ def load_data_and_labels2(data_file_lists):
     labels[11] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0] for _ in examples[11]]
     labels[12] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] for _ in examples[12]]
     labels[13] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] for _ in examples[13]]
-
+    
+    x_text = [clean_str(sent) for sent in x_text]
     y = np.concatenate([labels[0], labels[1], labels[2], labels[3], labels[4], labels[5], labels[6], labels[7], labels[8], labels[9], labels[10], labels[11], labels[12], labels[13]], 0)
     return [x_text, y]
 
