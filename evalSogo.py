@@ -10,6 +10,9 @@ from text_cnn import TextCNN
 from tensorflow.contrib import learn
 import csv
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 # Parameters
 # ==================================================
 
@@ -107,7 +110,7 @@ if y_test is not None:
     print("Accuracy: {:g}".format(correct_predictions/float(len(y_test))))
 
 # Save the evaluation to a csv
-predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions))
+predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions, y_test))
 out_path = os.path.join(FLAGS.checkpoint_dir, "..", "prediction.csv")
 print("Saving evaluation to {0}".format(out_path))
 with open(out_path, 'w') as f:
