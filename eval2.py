@@ -36,6 +36,7 @@ def jieba_str(string):
     seg_list = jieba.cut(clean_str(string))
     text = " ".join(seg_list)
     text = re.sub(" +", " ", text)
+    return text
 
 # Parameters
 # ==================================================
