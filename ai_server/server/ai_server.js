@@ -13,8 +13,9 @@ if (Meteor.isServer) {
     function getClass(num){
         var classes = ["artist", "emotion", "extend", "foods", "goplaces", "hotnews", "human", "nature", "news", "poets", "programmer", "scene", "talk", "travel"];
         var chclasses = ["艺术", "情感", "扩展", "美食", "去的地方", "热点新闻", "人物", "自然", "新闻", "歪诗几首", "程序猿日常", "美景", "杂谈", "旅游"];
+        var sogoclasses = ["汽车", "财经", "IT", "健康", "体育", "旅游","教育", "招聘", "文化", "军事","奥运", "社会", "国内", "国际","房产", "娱乐", "女性", "校园"];
         
-        return chclasses[parseInt(num)];
+        return sogoclasses[parseInt(num)];
     }
     
     function getClassPath(url) {
@@ -44,7 +45,9 @@ if (Meteor.isServer) {
         var s = data.toString()
         var title = s.match(/<meta property=\"og:title\" content=\"(.*?)- 故事贴\"\/>/)[1]
         console.log('title ' + title)
-        var cmd = '/mnt/cnn-text-classification-tf/eval2.py --checkpoint_dir="/mnt/cnn-text-classification-tf/runs/1488410276/checkpoints/" --eval_title="' + title + '"'
+
+        var cmd = '/mnt/cnn-text-classification-tf/eval2.py --checkpoint_dir="/mnt/cnn-text-classification-tf/runs/1488570471/checkpoints/" --eval_title="' + title + '"'
+
         console.log('cmd' + cmd);
         
         var class_info = shelljs.exec(cmd, {silent:true}).output;
