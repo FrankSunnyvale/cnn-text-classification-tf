@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-
+# -*- coding: utf-8 -*-
 import tensorflow as tf
 import numpy as np
 import os
@@ -103,6 +103,13 @@ with graph.as_default():
             batch_predictions = sess.run(predictions, {input_x: x_test_batch, dropout_keep_prob: 1.0})
             all_predictions = np.concatenate([all_predictions, batch_predictions])
 
+def hot_str(string):
+    sogoclasses = ["汽车", "财经", "IT", "健康", "体育", "旅游","教育", "招聘", "文化", "军事","奥运", "社会", "国内", "国际","房产", "娱乐", "女性", "校园"];
+    return sogoclasses[int(string)]
+
+
+all_predictions2 = [hot_str(idx) for idx in all_predictions]
+
 # Print accuracy if y_test is defined
 if y_test is not None:
     correct_predictions = float(sum(all_predictions == y_test))
@@ -110,7 +117,7 @@ if y_test is not None:
     print("Accuracy: {:g}".format(correct_predictions/float(len(y_test))))
 
 # Save the evaluation to a csv
-predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions, y_test))
+predictions_human_readable = np.column_stack((np.array(x_raw), all_predictions, y_test, all_predictions2))
 out_path = os.path.join(FLAGS.checkpoint_dir, "..", "prediction.csv")
 print("Saving evaluation to {0}".format(out_path))
 with open(out_path, 'w') as f:
