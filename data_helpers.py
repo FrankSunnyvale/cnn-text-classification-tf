@@ -1,9 +1,20 @@
+# -*- coding: utf-8 -*-
 import numpy as np
 import re
 import itertools
 import jieba
 from collections import Counter
 
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+
+def get_stopWords(stopWords_fn):
+    with open(stopWords_fn, 'rb') as f:
+        stopWords_set = {line.strip('\r\t').strip('\r\n').decode('utf-8') for line in f}
+    return stopWords_set
 
 def clean_str(string):
     """
@@ -30,12 +41,21 @@ def jieba_str(string):
     text = " ".join(seg_list)
     text = re.sub(" +", " ", text)
     return text
+    
+def jieba_str2(string, stopWords_set):
+    seg_words = jieba.cut(string)
+    words = [word for word in seg_words if word not in stopWords_set and word != ' ']
+    text = " ".join(words)
+    text = re.sub(" +", " ", text)
+    return text
 
 def load_data_and_labels3(data_file_lists):
     """
     Loads MR polarity data from files, splits the data into words and generates labels.
     Returns split sentences and labels.
     """
+    stopWords_set = get_stopWords('all_stopword.txt')
+
     # Load data from files
     examples = [None] * 18
     labels = [None] * 18
@@ -67,7 +87,8 @@ def load_data_and_labels3(data_file_lists):
     labels[16] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] for _ in examples[16]]
     labels[17] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] for _ in examples[17]]
     
-    x_text = [jieba_str(sent) for sent in x_text]
+    x_text = [jieba_str2(sent, stopWords_set) for sent in x_text]
+    
     y = np.concatenate([labels[0], labels[1], labels[2], labels[3], labels[4], labels[5], labels[6], labels[7], labels[8], labels[9], labels[10], labels[11], labels[12], labels[13], labels[14], labels[15], labels[16], labels[17]], 0)
     return [x_text, y]
 

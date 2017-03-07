@@ -32,9 +32,10 @@ def clean_str(string):
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
 
-def jieba_str(string):
-    seg_list = jieba.cut(clean_str(string))
-    text = " ".join(seg_list)
+def jieba_str2(string, stopWords_set):
+    seg_words = jieba.cut(string)
+    words = [word for word in seg_words if word not in stopWords_set and word != ' ']
+    text = " ".join(words)
     text = re.sub(" +", " ", text)
     return text
 
@@ -64,7 +65,8 @@ FLAGS._parse_flags()
 x_raw = [FLAGS.eval_title]
 y_test = None
 
-x_raw = [jieba_str(sent) for sent in x_raw]
+stopWords_set = get_stopWords('all_stopword.txt')
+x_raw = [jieba_str2(sent, stopWords_set) for sent in x_raw]
 
 # Map data into vocabulary
 vocab_path = os.path.join(FLAGS.checkpoint_dir, "..", "vocab")
