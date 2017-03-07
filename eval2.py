@@ -70,7 +70,7 @@ FLAGS._parse_flags()
 x_raw = [FLAGS.eval_title]
 y_test = None
 
-stopWords_set = get_stopWords('all_stopword.txt')
+stopWords_set = get_stopWords('/mnt/cnn-text-classification-tf/all_stopword.txt')
 x_raw = [jieba_str2(sent, stopWords_set) for sent in x_raw]
 
 # Map data into vocabulary
