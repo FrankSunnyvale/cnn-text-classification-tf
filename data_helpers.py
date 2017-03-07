@@ -3,6 +3,7 @@ import numpy as np
 import re
 import itertools
 import jieba
+import jieba.analyse
 from collections import Counter
 
 import sys
@@ -48,6 +49,54 @@ def jieba_str2(string, stopWords_set):
     text = " ".join(words)
     text = re.sub(" +", " ", text)
     return text
+    
+def jieba_str4(string):
+    seg_words = jieba.analyse.extract_tags(string)
+    text = " ".join(seg_words)
+    #print("Accuracy: {}".format(text))
+    return text    
+
+def load_data_and_labels4(data_file_lists):
+    """
+    Loads MR polarity data from files, splits the data into words and generates labels.
+    Returns split sentences and labels.
+    """
+    # Load data from files
+    examples = [None] * 18
+    labels = [None] * 18
+    
+    x_text = []
+    
+    for index, item in enumerate(data_file_lists):
+        examples[index] = list(open(item, "r").readlines())
+        examples[index] = [s.strip() for s in examples[index]]
+        x_text = x_text + examples[index]
+
+       
+    labels[0]  = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[0]]
+    labels[1]  = [[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[1]]
+    labels[2]  = [[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[2]]
+    labels[3]  = [[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[3]]
+    labels[4]  = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[4]]
+    labels[5]  = [[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[5]]
+    labels[6]  = [[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[6]]
+    labels[7]  = [[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[7]]
+    labels[8]  = [[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[8]]
+    labels[9]  = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0] for _ in examples[9]]
+    labels[10] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0] for _ in examples[10]]
+    labels[11] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0] for _ in examples[11]]
+    labels[12] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0] for _ in examples[12]]
+    labels[13] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0] for _ in examples[13]]
+    labels[14] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0] for _ in examples[14]]
+    labels[15] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0] for _ in examples[15]]
+    labels[16] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0] for _ in examples[16]]
+    labels[17] = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] for _ in examples[17]]
+    
+    x_text = [jieba_str4(sent) for sent in x_text]
+    
+    y = np.concatenate([labels[0], labels[1], labels[2], labels[3], labels[4], labels[5], labels[6], labels[7], labels[8], labels[9], labels[10], labels[11], labels[12], labels[13], labels[14], labels[15], labels[16], labels[17]], 0)
+    return [x_text, y]
+
 
 def load_data_and_labels3(data_file_lists):
     """
