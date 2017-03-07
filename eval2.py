@@ -12,6 +12,11 @@ import csv
 import re
 import jieba
 
+def get_stopWords(stopWords_fn):
+    with open(stopWords_fn, 'rb') as f:
+        stopWords_set = {line.strip('\r\t').strip('\r\n').decode('utf-8') for line in f}
+    return stopWords_set
+
 def clean_str(string):
     """
     Tokenization/string cleaning for all datasets except for SST.
