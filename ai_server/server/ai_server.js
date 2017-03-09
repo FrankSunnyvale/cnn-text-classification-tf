@@ -46,11 +46,11 @@ if (Meteor.isServer) {
         var title = s.match(/<meta property=\"og:title\" content=\"(.*?)- 故事贴\"\/>/)[1]
         console.log('title ' + title)
 
-        var cmd = '/mnt/cnn-text-classification-tf/eval2.py --checkpoint_dir="/mnt/cnn-text-classification-tf/runs/1488570471/checkpoints/" --eval_title="' + title + '"'
+        var cmd = '/mnt/cnn-text-classification-tf/eval2_bk.py --checkpoint_dir="/mnt/cnn-text-classification-tf/runs/1488919039/checkpoints/" --eval_title="' + title + '"'
 
         console.log('cmd' + cmd);
         
-        var class_info = shelljs.exec(cmd, {silent:true}).output;
+        var class_info = shelljs.exec(cmd, {silent:false}).output;
         console.log('class_info' + class_info);
         
         var info = JSON.parse(class_info)
