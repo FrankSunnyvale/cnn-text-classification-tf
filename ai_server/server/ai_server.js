@@ -13,7 +13,7 @@ if (Meteor.isServer) {
     function getClass(num){
         var classes = ["artist", "emotion", "extend", "foods", "goplaces", "hotnews", "human", "nature", "news", "poets", "programmer", "scene", "talk", "travel"];
         var chclasses = ["艺术", "情感", "扩展", "美食", "去的地方", "热点新闻", "人物", "自然", "新闻", "歪诗几首", "程序猿日常", "美景", "杂谈", "旅游"];
-        var sogoclasses = ["汽车", "财经", "IT", "健康", "体育", "旅游","教育", "招聘", "文化", "军事","奥运", "社会", "国内", "国际","房产", "娱乐", "女性", "校园"];
+        var sogoclasses = ["汽车", "财经", "IT", "健康", "体育", "旅游","教育", "招聘", "文化", "军事","奥运", "新闻", "新闻", "新闻","房产", "娱乐", "女性", "校园"];
         
         return sogoclasses[parseInt(num)];
     }
