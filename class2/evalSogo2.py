@@ -40,19 +40,19 @@ print("")
 # CHANGE THIS: Load data. Load your own data here
 if FLAGS.eval_train:
     x_raw, y_test = data_helpers.load_data_and_labels3([
-    "./eval/car.txt", 
-    "./eval/finance.txt", 
-    "./eval/it.txt", 
-    "./eval/health.txt", 
-    "./eval/sport.txt", 
-    "./eval/travel.txt", 
-    "./eval/edu.txt",
-    "./eval/culture.txt", 
-    "./eval/military.txt", 
-    "./eval/social.txt", 
-    "./eval/house.txt",
-    "./eval/ent.txt",
-    "./eval/woman.txt"
+    "./eval2/car.txt", 
+    "./eval2/finance.txt", 
+    "./eval2/it.txt", 
+    "./eval2/health.txt", 
+    "./eval2/sport.txt", 
+    "./eval2/travel.txt", 
+    "./eval2/edu.txt",
+    "./eval2/culture.txt", 
+    "./eval2/military.txt", 
+    "./eval2/social.txt", 
+    "./eval2/house.txt",
+    "./eval2/ent.txt",
+    "./eval2/woman.txt"
     ])
     y_test = np.argmax(y_test, axis=1)
 else:
